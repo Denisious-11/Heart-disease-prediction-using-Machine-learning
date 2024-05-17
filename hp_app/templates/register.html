@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Register</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-warning">
+
+    <div class="container">
+        <center>
+            <h1 style="margin-top: 50px;font-size: 50px;font-weight: bold;">Cardiovascular Monitoring System</h1>
+
+        </center>
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block">
+                                <img style="width:500px;height:500px" src="{% static 'img/cardio.jpg' %}">
+                            </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Patient Registration!</h1>
+                            </div>
+                            
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" name="name" id="l1" placeholder="Name">
+                                    </div><br><br>
+                                     <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" name="email" id="l2"
+                                            placeholder="Email" required="">
+                                    </div><br><br>
+                                     
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" name="age" id="l3" placeholder="Age" required="">
+                                    </div><br><br>
+                                    <div class="col-sm-6">
+                                        
+                                        <select id="gender" class="form-control form-control-user" >
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                          </select>
+                                    </div><br><br>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" name="phone" id="l4"
+                                            placeholder="Phone number" required="">
+                                    </div><br><br>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="password" class="form-control form-control-user" id="l5"
+                                            placeholder="Username">
+                                    </div><br><br>
+                                    <div class="col-sm-12">
+                                        <input type="password" name="password" class="form-control form-control-user" id="l6"
+                                        placeholder="Password">
+                                    </div><br><br>
+                                    <div class="col-sm-12">
+                                        <input type="password" name="password" class="form-control form-control-user" id="l7"
+                                        placeholder="Confirm Password">
+                                    </div><br><br><br>
+                                    <button id='i' class="btn btn-primary btn-user btn-block">register</button>
+                                   
+                       </div>
+                                
+                               
+                               
+                              
+                            
+                            <div class="text-center" style="position:relative;top:10px">
+                                <a class="small" href="{% url 'display_login' %}">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<script src="{% static 'assets/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript">
+  
+    $(document).ready(function(){
+
+        $("#gender").empty();
+        $("#gender").append("<option>Select_Gender</option>");
+        $("#gender").append("<option value='Male'>Male</option>");
+        $("#gender").append("<option value='Female'>Female</option>");
+
+
+    
+        
+        $('#i').click(function(){
+            var name=$('#l1').val()
+            var email=$('#l2').val()
+            var age=$("#l3").val()
+            var gender=$("#gender").val()
+            var phone=$('#l4').val()
+            var username=$('#l5').val()
+            var psw1=$('#l6').val()
+            var psw2=$('#l7').val()
+            var pwd_expression = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;;
+		var letters = /^[a-zA-Z\s]+$/
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var unmpattern=/^[a-zA-Z][a-zA-Z0-9.,$;]+$/
+            if((name=='')||(email=='')||(age=='')||(gender=='Select_Gender')||(phone=='')||(psw1=='')||(username=='')||(psw2==''))
+            {
+                alert("fill all fieldss")
+            }
+            else if(phone.length!=10){
+      alert("Phone number must be 10 digit number")
+    }
+		else if (!filter.test(email))
+		{
+			alert('Invalid email format');
+		}
+            else if(psw1!=psw2){
+
+                alert("passwords should be same")
+            }
+            else
+            {
+                $.ajax({url:"/register/",
+                datatype:"json",
+                data:{
+                     "name":name,
+                     "email":email,
+                     "age":age,
+                     "gender":gender,
+                     "phone":phone,
+                     "password":psw1,
+                     "username":username,
+                 
+                     
+                },
+                success:function(d)
+                {
+                    if(d.status==1)
+                    {
+                        alert("Registration successfull")
+                        window.location.href="{% url 'display_login' %}"
+                    }
+                  else
+                  {
+                    alert("some error occured")
+                 
+                  }
+                }    
+            })
+            }
+        })
+      })
+</script>  
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+
+</body>
+</html>

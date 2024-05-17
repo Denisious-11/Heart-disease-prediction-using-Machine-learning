@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Home_Patient</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+
+body{
+       /* background-image:url('static/img/download.jpg')*/
+       
+      }
+    
+
+    
+</style>
+
+  </head>
+
+<body>
+
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="#"><em style="font-size: 20px"> Cardiovascular monitoring system</em> </a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="{% url 'doctor_home' %}">Home</a></li>
+        <li><a href="{% url 'get_records' %}">View Records</a></li>
+        <li><a href="{% url 'Doctor_list_pats' %}">Chat</a></li>
+       
+       
+      
+    
+        <li><a href="{% url 'display_login' %}">Logout</a></li>
+       
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ***** Main Banner Area Start ***** -->
+  <div class="container-fluid p-0 mb-5">
+    <h2 style="text-align: center; margin-top:170px;"><u>Records</u></h2><br><br>
+
+        <div class='table-condensed container'>
+          <table class="table table-bordered b-t b-light" id="table">
+            <thead>
+              <tr>
+                <th>File_ID</th>
+                <th>File Name</th>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Download</th>
+             </tr>
+            </thead>
+            <tbody>
+
+                {% for i in req %}
+
+                  <tr>
+                    <form action="{% url 'download' %}" method="POST">
+                        {% csrf_token %}
+                        <td id="f_id">{{i.f_id}}<input type="text" name="f_id"  value="{{i.f_id}}" hidden></td>
+ 
+                        <td data-search="{{i.filename}}" data-filer="{{i.filename}}">{{i.filename}}<input type="text" name="filename" id="filename" value="{{i.filename}}" hidden><input type="text" name="chunks" id="chunks" value="{{i.chunks}}" hidden></td>
+
+                        <td>{{i.username}}<input type="text" name="username" value="{{i.username}}" hidden></td>
+
+                        <td>{{i.date}}<input type="text" name="date" value="{{i.date}}" hidden></td>
+
+                        <td >{{i.time}}<input type="text" name="time" value="{{i.time}}" hidden></td>
+
+                        <td ><input type="submit" name="approve"  id="approve" value="Download"></td>
+                    </form>
+                  </tr>
+
+                {% endfor %}
+             
+              
+            </tbody>
+          </table>
+      </div>
+  </div>
+  <div style="margin-top: 230px;">
+    </div>
+  <!-- ***** Main Banner Area End ***** -->
+
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/af-2.3.7/date-1.1.0/r-2.2.9/rg-1.1.3/sc-2.0.4/sp-1.3.0/datatables.min.js"></script>
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  
+              
+            
+  
+              <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hey... I am your assistant</h5>
+  
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                            <center>
+                          <div class="mb-3 row">
+                            
+                        <textarea name="textarea" disabled id="tarea"
+                        rows="10" cols="50">BOT: Hey... How can i help you?</textarea>
+                          </div>
+                          <div class="mb-3 row">
+                              <div class="col-md-9">
+                                  <input type="text" class="form-control" id="inpid" name="email">
+                                </div>
+                           
+                                <button  id="sendbtn" class="btn btn-primary">Send</button>
+                            
+                          </div>
+                      
+                         
+                      </center>
+                     
+                       
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+             
+  
+
+ 
+
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> Copyright 2020 by Grad School  
+          
+           | Design: <a href="https://templatemo.com" rel="sponsored" target="_parent">Me</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'assets/js/tabs.js' %}"></script>
+    <script src="{% static 'assets/js/video.js' %}"></script>
+    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+        //according to loftblog tut
+       
+    </script>
+
+    <script>
+
+      
+$("#sendbtn").click(function(){
+
+    
+uinp=$('#inpid').val();
+
+if(uinp==""){
+    alert("type your query")
+}
+
+else{
+
+
+$.ajax({url:"/Bot_response/",
+              data:{
+                  
+                  "qstn":uinp,
+                  
+    
+              },
+              
+          success:function(da){
+                
+            var ttext = document.getElementById('tarea').value;
+var res = ttext + "\n"+"You: "+uinp+ "\n"+"BOT : "+da.msg;
+document.getElementById('tarea').value = res
+              
+          }
+        });
+
+}
+})
+    </script>
+</body>
+</html>

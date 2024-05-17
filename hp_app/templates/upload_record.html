@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Prediction</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+
+body{
+        /*background-image:url('static/vote.jpg')*/
+       
+      }
+    
+
+    
+</style>
+
+<style>
+    .medusrtab {
+font-family: Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 100%;
+/* display: block; */
+  height: auto;
+  overflow: auto;
+}
+
+.medusrtab td, .medusrtab th {
+border: 1px solid #ddd;
+padding: 8px;
+}
+
+.medusrtab tr:nth-child(even){background-color: #f2f2f2;}
+
+.medusrtab tr:hover {background-color: #ddd;}
+
+.medusrtab th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #04AA6D;
+color: white;
+}
+</style>
+
+  </head>
+
+<body>
+
+    <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="#"><em style="font-size: 20px"> Cardiovascular monitoring system</em> </a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="{% url 'user' %}">Home</a></li>
+
+        <li><a href="{% url 'Prediction' %}">Check My Heart</a></li>
+        <li><a href="{% url 'view_upload_file' %}">Upload Records</a></li>
+        <li><a href="{% url 'view_doctors_user' %}">Chat</a></li>
+     
+    
+        <li><a href="{% url 'display_login' %}">Logout</a></li>
+       
+      </ul>
+    </nav>
+  </header>
+  <!-- ***** Main Banner Area Start ***** -->
+  
+  <!-- ***** Main Banner Area End ***** -->
+
+  
+  <div class="container-fluid p-0 mb-5">
+        <h2 style="text-align: center; margin-top:140px;"><u>Upload Files Here</u></h2><br><br>
+       
+        <form class="row contact_us_form" action="{% url 'upload_content' %}" method="post"  enctype='multipart/form-data'>{% csrf_token %}
+           <div class="a"><br><br>
+             
+                    <label for="file" style="color:black; font-weight: bold; margin-left:550px;"><b>File :</b></label>
+                    <input type="file"  style="width: 600px;margin-left:35px;margin-top:-30px;"  name="file" placeholder="Choose File" required>
+                <br><br><br>
+               
+                <input type="submit" id="b1" value="Upload" class="btn btn-info" style="margin-left:635px;"><br><br><br>
+            </div>
+        </form>
+    </div>
+
+  
+
+ 
+
+
+  <footer style="position:relative;top:700px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> Copyright 2020 by Grad School  
+          
+           | Design: <a href="https://templatemo.com" rel="sponsored" target="_parent">Me</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+   <script src="{% static 'jquery.min.js' %}"></script>
+   <script type="text/javascript">
+    $(document).ready(function(){
+         $('#upload').click(function(){
+            var val=$('#ageid').val()
+           
+        
+            if(val==""){
+                alert("please provide all details")
+            }
+            
+            else{
+
+                $.ajax({
+            url:"check_my_heart",
+            datatype:"json",
+            data:
+            {
+              "val":val,
+
+
+                 
+            },
+            success:function(d)
+            {
+                if(d.status==0)
+                {
+                    alert("Some error occured")
+                    // window.location.href="{% url 'display_login' %}"
+           
+                }
+               
+               
+                else{
+
+                   document.getElementById("resid").innerHTML=d.status
+                }
+            }
+            })
+
+            }
+           
+        
+            
+        })
+       
+    })
+</script>  
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+   
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'assets/js/tabs.js' %}"></script>
+    <script src="{% static 'assets/js/video.js' %}"></script>
+    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+        //according to loftblog tut
+       
+    </script>
+</body>
+</html>

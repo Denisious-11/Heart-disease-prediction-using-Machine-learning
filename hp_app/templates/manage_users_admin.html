@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Grad School HTML5 Template</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+
+body{
+        background-image:url('static/vote.jpg')
+       
+      }
+    
+
+    
+</style>
+
+  </head>
+
+<body>
+
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="#"><em style="font-size: 20px"> Cardiovascular monitoring system</em> </a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="{% url 'admin1' %}">Home</a></li>
+        <li class="has-submenu"><a href="#">Users</a>
+          <ul class="sub-menu">
+            <li><a href="{% url 'Reg_doctor' %}">Add Doctor</a></li>
+           
+            <li><a href="{% url 'view_doctors_admin' %}">View Doctors</a></li>
+            <li><a href="{% url 'view_users_admin' %}">View Patients</a></li>
+           
+          </ul>
+        </li>
+       
+       
+       
+        <li><a href="{% url 'display_login' %}">Logout</a></li>
+       
+      </ul>
+    </nav>
+  </header>
+  <!-- ***** Main Banner Area Start ***** -->
+  
+  <!-- ***** Main Banner Area End ***** -->
+
+  
+  <div id='l'>
+          <h1 style="position:relative;top:130px;text-align:center;font-family:fantasy;">Manage Users</h1>
+          <table id='tab' class="table table-dark" style="position:relative;top:200px;position:relative;top:200px;width:600px;left:350px"></table>
+    </div>
+  
+
+ 
+
+
+  <footer style="position:relative;top:700px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> Copyright 2020 by Grad School  
+          
+           | Design: <a href="https://templatemo.com" rel="sponsored" target="_parent">Me</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+   <script src="{% static 'jquery.min.js' %}"></script>
+    <script>
+        //according to loftblog tut
+         $(document).ready(function(){
+        
+       
+
+        
+         $.ajax({
+             url:"User_view",
+             datatype:"json", 
+             success:function(d){
+                $("#tab").empty()
+                   var tr1=$("<tr/>");
+                   tr1.append("<th>Users name</th>");
+                   tr1.append("<th>Phone no:</th>");
+                   tr1.append("<th>Email</th>");
+                  
+                  
+                $('#tab').append(tr1);
+                       
+                       for(i=0;i<d.d1.length;i++){
+                        var r1=$("<tr/>")
+                        
+                        r1.append("<td><input type='hidden' class='id' value='"+d.d1[i].pk+"'><input type='hidden' class='pn' value='"+d.d1[i].fields.name+"'>"+d.d1[i].fields.user_name+"</td>");
+                       
+                        r1.append("<td><input type='hidden' class='pr1' value='"+d.d1[i].fields.phone+"'>"+d.d1[i].fields.phone+"</td>");
+                         r1.append("<td><input type='hidden' class='pr2' value='"+d.d1[i].fields.email+"'>"+d.d1[i].fields.email+"</td>");
+                          
+                    r1.append("<td><input type='button' class='ed1' value='block'></td>");
+                     r1.append("<td><input type='button' class='ed2' value='unblock'></td>");
+                  
+                $('#tab').append(r1)
+                 $('.ed1').addClass('btn btn-danger')
+                   $('.ed2').addClass('btn btn-success')
+
+                
+                }
+                }
+                 
+                
+              
+       
+    })
+          $(document).on("click",'.ed1',function(){
+             var row=$(this).closest("tr")
+              var user_name=row.find(".pn").val()
+            var id2=row.find(".id").val()
+          
+             $.ajax({
+             url:"block",
+             datatype:"json",
+             data:{
+               "uname":user_name,
+               "id2":id2
+             },
+             success:function(d){
+               alert(d)
+               window.reload();
+              }
+          })
+           })
+              $(document).on("click",'.ed2',function(){
+             var row=$(this).closest("tr")
+              var user_name=row.find(".pn").val()
+            var id2=row.find(".id").val()
+          
+             $.ajax({
+             url:"Block_un",
+             datatype:"json",
+             data:{
+               "uname":user_name,
+               "id2":id2
+             },
+             success:function(d){
+               alert(d)
+               location.reload();
+              }
+          })
+       })
+            })
+     </script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+   
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'assets/js/tabs.js' %}"></script>
+    <script src="{% static 'assets/js/video.js' %}"></script>
+    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+        //according to loftblog tut
+       
+    </script>
+</body>
+</html>

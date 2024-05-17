@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>View_Users_Admin</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+
+body{
+        /*background-image:url('static/vote.jpg')*/
+       
+      }
+    
+
+    
+</style>
+
+<style>
+    .medusrtab {
+font-family: Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 80%;
+/* display: block; */
+  height: auto;
+  overflow: auto;
+}
+
+.medusrtab td, .medusrtab th {
+border: 1px solid #ddd;
+padding: 8px;
+}
+
+.medusrtab tr:nth-child(even){background-color: #f2f2f2;}
+
+.medusrtab tr:hover {background-color: #ddd;}
+
+.medusrtab th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #04AA6D;
+color: white;
+}
+</style>
+
+  </head>
+
+<body>
+
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="#"><em style="font-size: 20px"> Cardiovascular monitoring system</em> </a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="{% url 'user' %}">Home</a></li>
+
+        <li><a href="{% url 'Prediction' %}">Check My Heart</a></li>
+        <li><a href="{% url 'view_upload_file' %}">Upload Records</a></li>
+        <li><a href="{% url 'view_doctors_user' %}">Chat</a></li>
+       
+       
+        <li><a href="{% url 'display_login' %}">Logout</a></li>
+       
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ***** Main Banner Area Start ***** -->
+  
+  <!-- ***** Main Banner Area End ***** -->
+
+  
+  <div id='l' >
+<center>
+          <h1 style="margin-top: 100px;">Select a doctor</h1>
+          <!-- <table style="width: 90%;" id='tab' class="table table-dark" ></table> -->
+          <table class="medusrtab" id="viewusr">
+         
+            <tr>
+              <th style="display: none;">User ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Place</th>
+              <th>Select</th>
+  
+            </tr>
+            {% for i in data%}
+            <tr>
+              <td style="display: none;">{{i.id}}</td>
+              <td>{{i.name}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.phone}}</td>
+              <td>{{i.place}}</td>
+     
+       
+              <td><button id="dltbtn" style="background-color: rgb(194, 31, 31);color: white;">Chat</button></td>
+            
+            </tr>
+            {% endfor %}
+            
+          </table>
+        </center>
+    </div>
+  
+
+ 
+
+
+  <footer style="position:relative;top:700px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> Copyright 2020 by Grad School  
+          
+           | Design: <a href="https://templatemo.com" rel="sponsored" target="_parent">Me</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+   <script src="{% static 'jquery.min.js' %}"></script>
+    <script>
+        //according to loftblog tut
+         $(document).ready(function(){
+        
+       
+
+        
+      
+
+      $("#viewusr").on('click','#dltbtn',function(){
+  
+  // get the current row
+  var currentRow=$(this).closest("tr"); 
+
+  var qid=currentRow.find("td:eq(0)").text(); 
+ 
+    $.ajax({url:"/selectuser2/",
+          data:{
+              "uid":qid,
+              "utyp":"doc",
+              
+
+          },
+      success:function(da){
+                 
+             if(da.status==1)  {
+               window.location.href="{% url 'Chatpage' %}"
+             }  
+             else{
+               alert("Oops!!! some error occured\nTry again later")
+             }
+          
+      }
+    });
+  
+  // alert(qid)
+  
+});
+
+   
+            })
+     </script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+   
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'assets/js/tabs.js' %}"></script>
+    <script src="{% static 'assets/js/video.js' %}"></script>
+    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+        //according to loftblog tut
+       
+    </script>
+</body>
+</html>

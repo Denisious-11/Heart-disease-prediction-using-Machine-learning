@@ -1,0 +1,2 @@
+What is ChaCha20 encryption?
+The ChaCha20 Encryption Algorithm ChaCha20 is a stream cipher designed by D. J. Bernstein. It is a refinement of the Salsa20 algorithm, and it uses a 256-bit key. ChaCha20 successively calls the ChaCha20 block function, with the same key and nonce, and with successively increasing block counter parameters.
